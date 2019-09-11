@@ -27,13 +27,13 @@ CREATE TABLE `offices` (
 
  SET character_set_client = utf8mb4 ;
 CREATE TABLE `employees` (
-  `employeenumber` int(11) NOT NULL,
+  `employeenumber` int NOT NULL,
   `lastname` varchar(50) DEFAULT NULL,
   `firstname` varchar(50) DEFAULT NULL,
   `extension` varchar(10) DEFAULT NULL,
   `email` varchar(100) DEFAULT NULL,
   `officecode` varchar(10) DEFAULT NULL,
-  `reportsto` int(11) DEFAULT NULL,
+  `reportsto` int DEFAULT NULL,
   `jobtitle` varchar(50) DEFAULT NULL,
   PRIMARY KEY (`employeenumber`),
   KEY `reportsTo` (`reportsto`),
@@ -44,7 +44,7 @@ CREATE TABLE `employees` (
 
  SET character_set_client = utf8mb4 ;
 CREATE TABLE `customers` (
-  `customernumber` int(11) NOT NULL,
+  `customernumber` int NOT NULL,
   `customername` varchar(50) DEFAULT NULL,
   `contactlastname` varchar(50) DEFAULT NULL,
   `contactfirstname` varchar(50) DEFAULT NULL,
@@ -55,7 +55,7 @@ CREATE TABLE `customers` (
   `state` varchar(50) DEFAULT NULL,
   `postalcode` varchar(15) DEFAULT NULL,
   `country` varchar(50) DEFAULT NULL,
-  `salesrepemployeenumber` int(11) DEFAULT NULL,
+  `salesrepemployeenumber` int DEFAULT NULL,
   `creditlimit` double DEFAULT NULL,
   PRIMARY KEY (`customernumber`),
   KEY `salesRepEmployeeNumber` (`salesrepemployeenumber`),
@@ -65,13 +65,13 @@ CREATE TABLE `customers` (
 
  SET character_set_client = utf8mb4 ;
 CREATE TABLE `orders` (
-  `ordernumber` int(11) NOT NULL,
+  `ordernumber` int NOT NULL,
   `orderdate` date DEFAULT NULL,
   `requireddate` date DEFAULT NULL,
   `shippeddate` date DEFAULT NULL,
   `status` varchar(15) DEFAULT NULL,
   `comments` text,
-  `customernumber` int(11) DEFAULT NULL,
+  `customernumber` int DEFAULT NULL,
   PRIMARY KEY (`ordernumber`),
   KEY `customerNumber` (`customernumber`),
   CONSTRAINT `orders_ibfk_1` FOREIGN KEY (`customernumber`) REFERENCES `customers` (`customernumber`)
@@ -96,7 +96,7 @@ CREATE TABLE `products` (
   `productscale` varchar(10) DEFAULT NULL,
   `productvendor` varchar(50) DEFAULT NULL,
   `productdescription` text,
-  `quantityinstock` smallint(6) DEFAULT NULL,
+  `quantityinstock` smallint DEFAULT NULL,
   `buyprice` double DEFAULT NULL,
   `msrp` double DEFAULT NULL,
   PRIMARY KEY (`productcode`),
@@ -107,11 +107,11 @@ CREATE TABLE `products` (
 
  SET character_set_client = utf8mb4 ;
 CREATE TABLE `orderdetails` (
-  `ordernumber` int(11) NOT NULL,
+  `ordernumber` int NOT NULL,
   `productcode` varchar(15) NOT NULL,
-  `quantityordered` int(11) DEFAULT NULL,
+  `quantityordered` int DEFAULT NULL,
   `priceeach` double DEFAULT NULL,
-  `orderlinenumber` smallint(6) DEFAULT NULL,
+  `orderlinenumber` smallint DEFAULT NULL,
   PRIMARY KEY (`ordernumber`,`productcode`),
   KEY `productCode` (`productcode`),
   CONSTRAINT `orderdetails_ibfk_1` FOREIGN KEY (`ordernumber`) REFERENCES `orders` (`ordernumber`),
@@ -122,7 +122,7 @@ CREATE TABLE `orderdetails` (
 
  SET character_set_client = utf8mb4 ;
 CREATE TABLE `payments` (
-  `customernumber` int(11) NOT NULL,
+  `customernumber` int NOT NULL,
   `checknumber` varchar(50) NOT NULL,
   `paymentdate` date DEFAULT NULL,
   `amount` double DEFAULT NULL,
